@@ -1,0 +1,11 @@
+record_id,company,product,category,region,year,quarter,units_sold,unit_price,revenue,cost,profit,customer_rating,inventory
+1,Apple,iPhone 15,Flagship,North America,2024,Q1,9100,999,9090900,7210000,1880900,4.9,620
+2,Samsung,Galaxy S24,Flagship,Europe,2024,Q1,8400,899,7551600,6100000,1451600,4.8,850
+3,Google,Pixel 9,Flagship,North America,2024,Q2,4100,799,3275900,2550000,725900,4.7,430
+4,OnePlus,12R,Midrange,India,2024,Q2,7300,499,3642700,2860000,782700,4.6,910
+5,Xiaomi,14,Flagship,China,2024,Q2,11200,699,7828800,6210000,1618800,4.5,1020
+6,Realme,GT 6,Midrange,India,2024,Q3,6900,429,2960100,2290000,670100,4.4,820
+7,Vivo,X100,Flagship,India,2024,Q3,5800,749,4344200,3380000,964200,4.5,610
+8,Oppo,Find X7,Flagship,China,2024,Q3,5100,779,3972900,3090000,882900,4.6,570
+9,Motorola,Edge 50,Foldable,Brazil,2024,Q4,2400,899,2157600,1680000,477600,4.5,260
+10,Nothing,Phone 2a,Midrange,United Kingdom,2024,Q4,3600,399,1436400,1120000,316400,4.7,410

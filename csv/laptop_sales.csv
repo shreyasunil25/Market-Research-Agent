@@ -1,0 +1,11 @@
+record_id,company,product,category,region,year,quarter,units_sold,unit_price,revenue,cost,profit,customer_rating,inventory
+1,Dell,Inspiron 15,Business,North America,2024,Q1,2350,749,1760150,1410000,350150,4.5,420
+2,HP,Pavilion 14,Consumer,Europe,2024,Q1,1980,689,1364220,1085000,279220,4.4,380
+3,Lenovo,LOQ,Gaming,India,2024,Q1,1520,1199,1822480,1480000,342480,4.8,240
+4,ASUS,ROG Zephyrus,Gaming,Japan,2024,Q2,940,1899,1785060,1430000,355060,4.9,110
+5,Acer,Nitro V,Gaming,India,2024,Q2,1780,999,1778220,1410000,368220,4.6,290
+6,Apple,MacBook Air M3,Ultrabook,North America,2024,Q2,2860,1299,3715140,2920000,795140,4.9,320
+7,MSI,Katana 15,Gaming,Germany,2024,Q3,870,1499,1304130,1030000,274130,4.7,105
+8,Samsung,Galaxy Book4,Ultrabook,South Korea,2024,Q3,1320,1099,1450680,1140000,310680,4.5,180
+9,Microsoft,Surface Laptop 7,Ultrabook,United Kingdom,2024,Q4,760,1399,1063240,835000,228240,4.6,95
+10,LG,Gram 16,Ultrabook,South Korea,2024,Q4,980,1599,1567020,1240000,327020,4.8,130
