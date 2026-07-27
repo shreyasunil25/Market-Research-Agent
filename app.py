@@ -1,20 +1,15 @@
-# app.py
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-
-from market_research import graph_app  # change to your actual filename, without .py
+from market_research import graph_app  
 
 app = FastAPI(title="Market Research Agent API")
-
 
 class ReportRequest(BaseModel):
     industry: str
 
-
 @app.get("/")
 def health_check():
     return {"status": "running"}
-
 
 @app.post("/generate-report")
 def generate_report(req: ReportRequest):
