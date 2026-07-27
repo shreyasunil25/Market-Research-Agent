@@ -1,7 +1,7 @@
 import os
 import sqlite3
 from typing import TypedDict, Optional
-
+import sqlite3
 from langchain_ollama import ChatOllama
 from tavily import TavilyClient
 from langgraph.graph import StateGraph, START, END
@@ -37,65 +37,6 @@ def researcher_node(state: State) -> dict:
     summary = llm.invoke(prompt).content
     return {"research_findings": summary}
 
-# def sql_analyst_node(state: State) -> dict:
-#     print("→ sql_analyst running")
-#     try:
-#         conn = sqlite3.connect("market.db")   # rename to your actual db filename
-#         industry = state["industry"]
-
-#         latest_year = conn.execute(
-#             "SELECT MAX(year) FROM sales WHERE category LIKE ?", (f"%{industry}%",)
-#         ).fetchone()[0]
-
-#         if latest_year is None:
-#             conn.close()
-#             return {"sql_metrics": f"No data found for category matching '{industry}'"}
-
-#         top_companies = conn.execute("""
-#             SELECT company, SUM(units_sold) AS total_units, SUM(revenue) AS total_revenue
-#             FROM sales
-#             WHERE category LIKE ? AND year = ?
-#             GROUP BY company
-#             ORDER BY total_revenue DESC
-#             LIMIT 5
-#         """, (f"%{industry}%", latest_year)).fetchall()
-
-#         totals = conn.execute("""
-#             SELECT SUM(revenue), SUM(profit), AVG(unit_price), AVG(customer_rating)
-#             FROM sales
-#             WHERE category LIKE ? AND year = ?
-#         """, (f"%{industry}%", latest_year)).fetchone()
-
-#         total_revenue, total_profit, avg_price, avg_rating = totals
-
-#         yoy = conn.execute("""
-#             SELECT year, SUM(revenue)
-#             FROM sales
-#             WHERE category LIKE ?
-#             GROUP BY year
-#             ORDER BY year
-#         """, (f"%{industry}%",)).fetchall()
-
-#         conn.close()
-
-#         metrics = (
-#             f"Latest year: {latest_year}\n"
-#             f"Top companies by revenue: {top_companies}\n"
-#             f"Total revenue: {total_revenue:,.0f}\n"
-#             f"Total profit: {total_profit:,.0f}\n"
-#             f"Average unit price: {avg_price:.2f}\n"
-#             f"Average customer rating: {avg_rating:.2f}\n"
-#             f"Revenue by year: {yoy}"
-#         )
-#     except Exception as e:
-#         print(f"   ⚠️ SQL query failed: {e}")
-#         raise
-
-#     return {"sql_metrics": metrics}
-
-
-import sqlite3
-
 def find_matching_table(conn, industry: str) -> str | None:
     tables = [row[0] for row in conn.execute(
         "SELECT name FROM sqlite_master WHERE type='table'"
@@ -107,7 +48,6 @@ def find_matching_table(conn, industry: str) -> str | None:
             return table
     return None
 
-
 def sql_analyst_node(state: State) -> dict:
     print("→ sql_analyst running")
     try:
@@ -118,7 +58,6 @@ def sql_analyst_node(state: State) -> dict:
             conn.close()
             return {"sql_metrics": f"No matching table found for '{state['industry']}'"}
 
-        # table name comes from sqlite_master (our own db), not raw user input — safe to interpolate
         latest_year = conn.execute(f"SELECT MAX(year) FROM {table}").fetchone()[0]
 
         top_companies = conn.execute(f"""
