@@ -1,0 +1,188 @@
+{
+  "name": "market research",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "824f4173-4f0d-4b29-a1bd-c30ddb504dae",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8000/generate-report",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "industry",
+              "value": "electric vehicle"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        224,
+        0
+      ],
+      "id": "85c4c86f-74af-413e-98ac-889ca4b328bd",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "sendTo": "example@gmail.com",
+        "subject": "=Todays market analysis on {{ $('Markdown').item.json.industry }}",
+        "emailType": "text",
+        "message": "={{ $json.pdf_url }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        848,
+        0
+      ],
+      "id": "261d1988-f491-4304-9e6e-7e44e16a7396",
+      "name": "Send a message",
+      "webhookId": "74596665-9782-4fd9-90b8-8cb1580e05c2",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "fa741KbbxjR6uWwu",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "markdownToHtml",
+        "markdown": "={{ $json.report }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.markdown",
+      "typeVersion": 1,
+      "position": [
+        432,
+        0
+      ],
+      "id": "fb01f43d-8188-4660-88f1-14cf070a9f07",
+      "name": "Markdown"
+    },
+    {
+      "parameters": {
+        "html_content": "={{ $json.data }}"
+      },
+      "type": "n8n-nodes-htmlcsstopdf.htmlcsstopdf",
+      "typeVersion": 1,
+      "position": [
+        640,
+        0
+      ],
+      "id": "5332e72d-1e2a-4811-92e2-b2819d9befd3",
+      "name": "Convert HTML to PDF",
+      "credentials": {
+        "htmlcsstopdfApi": {
+          "id": "pliUw3Vv8h7xfwn8",
+          "name": "HTML to PDF account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 10
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        -144
+      ],
+      "id": "8b63df21-1284-486e-8748-92e7b3f7a525",
+      "name": "Schedule Trigger"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Markdown",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Markdown": {
+      "main": [
+        [
+          {
+            "node": "Convert HTML to PDF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert HTML to PDF": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "aef21494-8be7-43db-8785-2675abd62693",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "de561fa6a7ef9b35ec49e0bfcf847eeaf9e05e92ae3dc132fbaedc0ab79750f8"
+  },
+  "nodeGroups": [],
+  "id": "3XM0zNfoLhSoA3kA",
+  "tags": []
+}
