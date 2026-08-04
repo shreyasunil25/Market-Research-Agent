@@ -128,7 +128,7 @@ To use it:
 ```
 market-research-agent/
 ├── graph/
-│   └── market_research_graph.py
+│   └── market_research.py
 ├── app.py
 ├── data/
 │   └── market_data.db
